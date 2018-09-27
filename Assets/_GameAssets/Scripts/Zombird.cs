@@ -10,6 +10,7 @@ public class Zombird : MonoBehaviour
     [SerializeField] private float fuerza = 3f;
     [SerializeField] private Text marcadorPuntos;
     [SerializeField] ParticleSystem prefabExplosion;
+    [Header("Audio")]
     [SerializeField] AudioSource hit;
     [SerializeField] AudioClip points;
     [SerializeField] AudioClip wings;
