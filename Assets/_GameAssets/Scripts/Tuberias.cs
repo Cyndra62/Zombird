@@ -5,11 +5,14 @@ using UnityEngine;
 public class Tuberias : MonoBehaviour {
 
     [SerializeField] private int speed = 3;
-    
+    [Header("Variables Rango Altura Tuberias")]
+    [SerializeField] private int UpLimit = 10;
+    [SerializeField] private int DownLimit = -5;
 
     void Start () {
-        float factorPosicion = Random.Range(-5,10);
+        float factorPosicion = Random.Range(DownLimit,UpLimit);
         transform.position = new Vector3(transform.position.x, transform.position.y + factorPosicion, transform.position.z);
+       
     }
 	
 	// Update is called once per frame
@@ -26,5 +29,5 @@ public class Tuberias : MonoBehaviour {
             }
     }
 
-    
+   
 }

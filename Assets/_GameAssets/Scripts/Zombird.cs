@@ -10,13 +10,19 @@ public class Zombird : MonoBehaviour
     [SerializeField] private float fuerza = 3f;
     [SerializeField] private Text marcadorPuntos;
     [SerializeField] ParticleSystem prefabExplosion;
+    [SerializeField] AudioSource hit;
+    [SerializeField] AudioClip points;
+    [SerializeField] AudioClip wings;
     private Rigidbody rb;
     private int puntuation = 0;
-   
+    private AudioSource source;
+
 
     void Start()
     {
         rb= GetComponent<Rigidbody>();
+        source = GetComponent<AudioSource>();
+        
         ActualizarPuntos();
         GameConfig.ArrancaJuego();
 
@@ -28,6 +34,7 @@ public class Zombird : MonoBehaviour
         if (Input.GetKeyDown("space"))
         {
             rb.AddForce(transform.up * fuerza);
+            source.PlayOneShot(wings, 1);
         }
 
     }
@@ -35,7 +42,10 @@ public class Zombird : MonoBehaviour
     void ActualizarPuntos()
     {
         marcadorPuntos.text = "Score: " + puntuation;
-
+        if (puntuation > 0)
+        {
+            source.PlayOneShot(points, 1);
+        }
 
     }
 
@@ -43,7 +53,9 @@ public class Zombird : MonoBehaviour
     private void OnCollisionEnter(Collision collision)
     {
         //Detener el juego
+        hit.Play();
         GameConfig.ParaJuego();
+        
         //Crear sistema de particulas
         Instantiate(prefabExplosion, transform.position, Quaternion.identity);
         //Desactivar Renderer
